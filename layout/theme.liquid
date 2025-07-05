@@ -93,15 +93,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.dataset.src=
     {%- if settings.favicon -%}
       <link rel="shortcut icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png">
     {%- endif -%}
-    {%- comment -%}Few prefech to increase performance on commonly used third-parties{%- endcomment -%}
+    {%- comment -%}Enhanced resource hints for better performance{%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com">
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://static.hotjar.com">
+    <link rel="preconnect" href="https://a.klaviyo.com">
+    <link rel="preconnect" href="https://sos-de-fra-1.exo.io">
+    <link rel="preconnect" href="https://scripting.ibgrej509o.com">
+    <link rel="preconnect" href="https://trck.linkster.co">
+    <link rel="preconnect" href="https://www.dwin1.com">
+    
     <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://static.hotjar.com">
+    <link rel="dns-prefetch" href="https://a.klaviyo.com">
+    <link rel="dns-prefetch" href="https://sos-de-fra-1.exo.io">
+    <link rel="dns-prefetch" href="https://scripting.ibgrej509o.com">
+    <link rel="dns-prefetch" href="https://trck.linkster.co">
+    <link rel="dns-prefetch" href="https://www.dwin1.com">
+    
     <link rel="stylesheet" href="https://use.typekit.net/vkt4lzq.css">
-    {%- unless settings.heading_font.system? and settings.text_font.system? -%}
-      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    {%- endunless -%}
-    {%- comment -%}Preload important resources{%- endcomment -%}
+    {%- comment -%}Preload critical resources{%- endcomment -%}
+    {%- if request.page_type == 'index' -%}
+      <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
+      <link rel="preload" href="{{ 'theme.js' | asset_url }}" as="script">
+    {%- endif -%}
+    
+    {%- if request.page_type == 'product' -%}
+      <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
+      <link rel="preload" href="{{ 'theme.js' | asset_url }}" as="script">
+      {%- if product.featured_media -%}
+        <link rel="preload" href="{{ product.featured_media | image_url: width: 800 }}" as="image">
+      {%- endif -%}
+    {%- endif -%}
     
 {{ 'DevStyles.css' | asset_url | stylesheet_tag }}
 {{ 'custom.css' | asset_url | stylesheet_tag }}

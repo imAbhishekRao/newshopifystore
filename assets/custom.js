@@ -826,3 +826,115 @@ var updateProductMedia = (variantId) => {
 		}
 	});
 }
+
+// Safe Lazy Loading - Only works with explicitly marked images
+const SafeLazyLoader = (() => {
+  let observer;
+  let lazyElements = [];
+
+  const init = () => {
+    // Only initialize if there are elements marked for lazy loading
+    const lazyElements = document.querySelectorAll('[data-lazy-src]');
+    if (lazyElements.length === 0) return;
+
+    if ('IntersectionObserver' in window) {
+      setupIntersectionObserver();
+    } else {
+      setupFallbackLazyLoading();
+    }
+  };
+
+  const setupIntersectionObserver = () => {
+    const options = {
+      rootMargin: '100px 0px', // Start loading 100px before element enters viewport
+      threshold: 0.01
+    };
+
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadElement(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    // Only observe elements that are explicitly marked
+    document.querySelectorAll('[data-lazy-src]').forEach(el => {
+      observer.observe(el);
+    });
+  };
+
+  const setupFallbackLazyLoading = () => {
+    const loadVisibleElements = () => {
+      const viewportHeight = window.innerHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      document.querySelectorAll('[data-lazy-src]').forEach(el => {
+        if (el.offsetTop < viewportHeight + scrollTop + 200) {
+          loadElement(el);
+        }
+      });
+    };
+
+    // Throttled scroll handler
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          loadVisibleElements();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    loadVisibleElements();
+  };
+
+  const loadElement = (element) => {
+    const src = element.dataset.lazySrc;
+    if (!src) return;
+
+    if (element.tagName === 'IMG') {
+      const tempImage = new Image();
+      tempImage.onload = () => {
+        element.src = src;
+        element.classList.add('lazy-loaded');
+        element.removeAttribute('data-lazy-src');
+      };
+      tempImage.onerror = () => {
+        element.classList.add('lazy-error');
+        console.warn('Failed to load lazy image:', src);
+      };
+      tempImage.src = src;
+    } else if (element.tagName === 'IFRAME') {
+      element.src = src;
+      element.classList.add('lazy-loaded');
+      element.removeAttribute('data-lazy-src');
+    }
+  };
+
+  const refresh = () => {
+    if (observer) {
+      observer.disconnect();
+    }
+    init();
+  };
+
+  return {
+    init,
+    refresh
+  };
+})();
+
+// Initialize only when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  SafeLazyLoader.init();
+});
+
+// Refresh when new content is added
+document.addEventListener('shopify:section:load', () => {
+  SafeLazyLoader.refresh();
+});

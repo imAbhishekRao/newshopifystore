@@ -167,11 +167,11 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
             {%- capture logo_size -%}{{ section.settings.logo_max_width | at_least: section.settings.mobile_logo_max_width | times: 2 | append: 'x' }}{%- endcapture -%}
             {%- capture logo_size_b -%}{{ section.settings.logo_max_width_b | at_least: section.settings.mobile_logo_max_width_b | times: 2 | append: 'x' }}{%- endcapture -%}
             <span class="visually-hidden">{{ shop.name }}</span>
-            <img class="header__logo-image new-big-redesign-ab-test-a" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" src="{{ section.settings.logo | img_url: logo_size }}" alt="{{ section.settings.logo.alt | escape }}">
-            <img class="header__logo-image new-big-redesign-ab-test-b" width="{{ section.settings.logo_b.width }}" height="{{ section.settings.logo_b.height }}" src="{{ section.settings.logo_b | img_url: logo_size_b }}" alt="{{ section.settings.logo_b.alt | escape }}">
+            <img class="header__logo-image new-big-redesign-ab-test-a" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" src="{{ section.settings.logo | img_url: logo_size }}" alt="{{ section.settings.logo.alt | escape }}" loading="eager" decoding="async">
+            <img class="header__logo-image new-big-redesign-ab-test-b" width="{{ section.settings.logo_b.width }}" height="{{ section.settings.logo_b.height }}" src="{{ section.settings.logo_b | img_url: logo_size_b }}" alt="{{ section.settings.logo_b.alt | escape }}" loading="eager" decoding="async">
 
             {%- if request.page_type == 'index' and section.settings.enable_transparent_header and section.settings.transparent_logo != blank -%}
-              <img class="header__logo-image header__logo-image--transparent" width="{{ section.settings.transparent_logo.width }}" height="{{ section.settings.transparent_logo.height }}" src="{{ section.settings.transparent_logo | img_url: logo_size }}" alt="{{ section.settings.transparent_logo.alt | escape }}">
+              <img class="header__logo-image header__logo-image--transparent" width="{{ section.settings.transparent_logo.width }}" height="{{ section.settings.transparent_logo.height }}" src="{{ section.settings.transparent_logo | img_url: logo_size }}" alt="{{ section.settings.transparent_logo.alt | escape }}" loading="eager" decoding="async">
             {%- endif -%}
           {%- else -%}
             <span class="header__logo-text heading h5">{{ shop.name }}</span>

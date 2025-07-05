@@ -2373,3 +2373,271 @@ body.new-big-redesign-ab-test .product--image-and-size-details .product--size-de
 [js-product-media-id]:not(.active) {
 	display: none;
 }
+
+/* Safe Lazy Loading Styles - Only for explicitly marked elements */
+[data-lazy-src] {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+[data-lazy-src].lazy-loaded {
+  opacity: 1;
+}
+
+[data-lazy-src].lazy-error {
+  opacity: 0.5;
+  background: #ffebee;
+  border: 1px solid #f44336;
+}
+
+/* Optimize image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Responsive image optimization */
+@media (max-width: 768px) {
+  img[data-src] {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Product image specific lazy loading */
+.product-item__primary-image.lazy-loading,
+.product-item__secondary-image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 200px;
+}
+
+.product__media-image-wrapper img.lazy-loading {
+  background: #f8f8f8;
+  min-height: 300px;
+}
+
+/* Collection image lazy loading */
+.list-collections__item-image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 150px;
+}
+
+/* Hero and banner image lazy loading */
+.image-with-text__image.lazy-loading,
+.image-with-text-overlay__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 400px;
+}
+
+/* Newsletter and popup image lazy loading */
+.newsletter-modal__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 200px;
+}
+
+/* Footer image lazy loading */
+.footer__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 60px;
+}
+
+/* Logo lazy loading */
+.header__logo-image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 40px;
+}
+
+/* Cart and mini-cart image lazy loading */
+.line-item__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 80px;
+}
+
+/* Predictive search image lazy loading */
+.predictive-search__article-image.lazy-loading,
+.line-item__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 60px;
+}
+
+/* Video poster lazy loading */
+.video-wrapper__poster-image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 200px;
+}
+
+/* Gallery image lazy loading */
+.gallery__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 250px;
+}
+
+/* Timeline image lazy loading */
+.timeline__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 180px;
+}
+
+/* Press logo lazy loading */
+.press-list__logo-image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 80px;
+}
+
+/* Trust icons lazy loading */
+.TrustIconsWithText--inner img.lazy-loading {
+  background: #f8f8f8;
+  min-height: 40px;
+}
+
+/* Custom block images lazy loading */
+.couponCode--inner img.lazy-loading {
+  background: #f8f8f8;
+  min-height: 100px;
+}
+
+/* Product form images lazy loading */
+.product-form__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 120px;
+}
+
+/* Mobile menu images lazy loading */
+.mobile-nav__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 270px;
+}
+
+/* Desktop menu images lazy loading */
+.mega-menu__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 240px;
+}
+
+/* Contact form images lazy loading */
+.contact__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 300px;
+}
+
+/* Gift card images lazy loading */
+.gift-card__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 280px;
+}
+
+/* Password page images lazy loading */
+.password__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 200px;
+}
+
+/* Product content images lazy loading */
+.product-tabs__trust-icon.lazy-loading {
+  background: #f8f8f8;
+  min-height: 24px;
+}
+
+/* Shop the look images lazy loading */
+.shop-the-look__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 300px;
+}
+
+.shop-the-look__product-image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 72px;
+}
+
+/* Promotion block images lazy loading */
+.promotion-block__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 200px;
+}
+
+/* Multi-column images lazy loading */
+.multi-column__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 200px;
+}
+
+/* Logo list images lazy loading */
+.logo-list__image.lazy-loading {
+  background: #f8f8f8;
+  min-height: 60px;
+}
+
+/* Blog post images lazy loading */
+.article-comment__gravatar.lazy-loading {
+  background: #f8f8f8;
+  min-height: 100px;
+}
+
+/* Text with icons images lazy loading */
+.text-with-icons__custom-icon.lazy-loading {
+  background: #f8f8f8;
+  min-height: 60px;
+}
+
+/* Product info images lazy loading */
+.product-info-display-block img.lazy-loading {
+  background: #f8f8f8;
+  min-height: 120px;
+}
+
+/* Product media images lazy loading */
+.product-media-image-grid img.lazy-loading {
+  background: #f8f8f8;
+  min-height: 200px;
+}
+
+/* Custom section images lazy loading */
+.bd-image-text img.lazy-loading,
+.bd-image-overlay img.lazy-loading {
+  background: #f8f8f8;
+  min-height: 300px;
+}
+
+/* Performance optimizations */
+.lazy-loading {
+  will-change: opacity;
+  contain: layout style paint;
+}
+
+.lazy-loaded {
+  will-change: auto;
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .lazy-loading {
+    background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 50%, #f5f5f5 75%);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .lazy-loading {
+    animation: none;
+    background: #f0f0f0;
+  }
+  
+  img[loading="lazy"] {
+    transition: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .lazy-loading {
+    background: none;
+    animation: none;
+    opacity: 1;
+  }
+  
+  img[data-src] {
+    display: none;
+  }
+}

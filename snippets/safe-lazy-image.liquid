@@ -1,0 +1,38 @@
+{%- comment -%}
+  Safe Lazy Loading Image Snippet
+  Only works when explicitly used - won't interfere with existing functionality
+  
+  Usage:
+  {% render 'safe-lazy-image', 
+    image: image_object,
+    sizes: '100vw',
+    class: 'custom-class',
+    alt: 'Alt text'
+  %}
+{%- endcomment -%}
+
+{%- liquid
+  assign image = image | default: nil
+  assign sizes = sizes | default: '100vw'
+  assign class = class | default: ''
+  assign alt = alt | default: image.alt | escape
+  
+  if image
+    assign image_url = image | image_url: width: image.width
+    assign image_srcset = image | image_url: width: image.width
+  endif
+-%}
+
+{%- if image -%}
+  <img 
+    class="{{ class }}"
+    data-lazy-src="{{ image_url }}"
+    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E"
+    alt="{{ alt }}"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    sizes="{{ sizes }}"
+    loading="lazy"
+    decoding="async"
+  >
+{%- endif -%} 
