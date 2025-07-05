@@ -117,19 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.dataset.src=
     <link rel="dns-prefetch" href="https://www.dwin1.com">
     
     <link rel="stylesheet" href="https://use.typekit.net/vkt4lzq.css">
-    {%- comment -%}Preload critical resources{%- endcomment -%}
-    {%- if request.page_type == 'index' -%}
-      <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
-      <link rel="preload" href="{{ 'theme.js' | asset_url }}" as="script">
-    {%- endif -%}
-    
-    {%- if request.page_type == 'product' -%}
-      <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
-      <link rel="preload" href="{{ 'theme.js' | asset_url }}" as="script">
-      {%- if product.featured_media -%}
-        <link rel="preload" href="{{ product.featured_media | image_url: width: 800 }}" as="image">
-      {%- endif -%}
-    {%- endif -%}
+
     
 {{ 'DevStyles.css' | asset_url | stylesheet_tag }}
 {{ 'custom.css' | asset_url | stylesheet_tag }}
